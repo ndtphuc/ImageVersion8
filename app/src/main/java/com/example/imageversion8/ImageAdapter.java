@@ -15,11 +15,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     private List<Integer> imageResources;
     private Context context;
     private int selectedPosition = -1;
-    private OnImageClickListener onImageClickListener; // Listener to handle item clicks
+    private OnImageClickListener onImageClickListener;
+    private RecyclerView recyclerView;
 
-    public ImageAdapter(List<Integer> imageResources, OnImageClickListener listener) {
+    public ImageAdapter(List<Integer> imageResources, OnImageClickListener listener, RecyclerView recyclerView) {
         this.imageResources = imageResources;
         this.onImageClickListener = listener;
+        this.recyclerView = recyclerView;
     }
 
     @NonNull
@@ -36,10 +38,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         Drawable drawable = context.getDrawable(imageResource);
         holder.imageView.setImageDrawable(drawable);
 
-        // Highlight the selected image
-        holder.imageView.setSelected(position == selectedPosition);
-
-        // Set a click listener to handle item clicks
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +46,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
                 }
             }
         });
+
+        // Apply zoom effect to the selected image
+        if (position == selectedPosition) {
+            holder.imageView.setScaleX(1.4f); // Adjust the scale factor as needed
+            holder.imageView.setScaleY(1.4f);
+        } else {
+            holder.imageView.setScaleX(1.0f); // Reset to normal size
+            holder.imageView.setScaleY(1.0f);
+        }
     }
 
     @Override
@@ -68,9 +75,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         void onImageClick(int position);
     }
 
-    // Method to set the selected position
     public void setSelectedPosition(int position) {
         selectedPosition = position;
-        notifyDataSetChanged(); // Refresh the RecyclerView to update the UI
+        notifyDataSetChanged();
+
+        // Scroll the RecyclerView to the selected position
+        if (recyclerView != null) {
+            recyclerView.smoothScrollToPosition(position);
+        }
     }
 }

@@ -25,6 +25,7 @@
         <!-- Previous button -->
         <Button
             android:id="@+id/btnPrevious"
+            android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Previous" />
@@ -32,6 +33,7 @@
         <!-- Next button -->
         <Button
             android:id="@+id/btnNext"
+            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next" />
@@ -44,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottomLayout"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:background="@color/white"/>
 
 </RelativeLayout>

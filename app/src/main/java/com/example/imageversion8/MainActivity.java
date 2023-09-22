@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements ImageAdapter.OnIm
             }
         }
 
-        imageAdapter = new ImageAdapter(imageResources, this); // Pass this activity as the listener
+        imageAdapter = new ImageAdapter(imageResources, this, imageList);  // Pass this activity as the listener
         imageList.setAdapter(imageAdapter);
         imageList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
